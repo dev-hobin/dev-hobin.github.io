@@ -1,0 +1,110 @@
+---
+series: design-system
+title: 사용자 관점의 컴포넌트 디자인 3 - 컴포넌트에서의 e.preventDefault()의 의미
+date: 2023-03-02 18:00:00
+tags:
+  - Design System
+slug: meaning-of-preventdefault-in-component
+---
+
+## event.preventDefault() 의 기본적인 의미
+
+event.preventDefault()의 기본적인 의미는 이벤트가 일어날 때 발생하는 사용자 에이전트의 기본동작을 막는다는 것이다.
+
+```tsx
+// 기본적인 form submit 동작이 작동하지 않는다.
+<form onSumit={(e) => {e.preventDefault()}}>{/* 생략 */}</form>
+// 기본적인 페이지 이동이 일어나지 않는다.
+<a href="https://..." onClick={(e) => e.preventDefault()}>링크</a>
+```
+
+아주 간단하다.
+
+하지만 이 기능에 대해서 컴포넌트 제작자 관점에서 생각해볼 것이 있다.
+이 preventDefault 라는 기능은 컴포넌트 사용자에게 좀 더 유연하게 컴포넌트를 활용할 수 있도록 선택권을 준다.
+
+## 컴포넌트 단위로 의미를 확장해보자
+
+자, 우리는 컴포넌트 제작자로서 정말 편하고 유용한 여러 기능을 가진 컴포넌트를 만들었다.
+
+```tsx
+const FancyComponent = () => {
+	// 매우 유용한 동작들
+	const handleClick = ...
+	const handleFocus = ...
+	...
+
+	return (...)
+}
+```
+
+대부분의 사용자들은 이 컴포넌트에 대해 만족하지만, 몇몇의 사용자가 이 컴포넌트에 대한 아쉬움이 있다고 한다.
+대부분의 기능은 만족하지만, 특정 몇몇 기능은 이 컴포넌트의 기능 말고 본인의 기능을 사용하고 싶다는 것이다.
+하지만 컴포넌트 사용자는 컴포넌트 제작자가 아니니 컴포넌트 자체의 구현을 건드릴 수 없다.
+이런 문제를 어떻게 해결해야할까? 음,, 컴포넌트의 기본동작을 막으면 되지 않을까?
+그럼 어떻게 막을까??
+
+event.preventDefault 는 사용자 에이전트의 기본 동작을 막는다고 했다. 여기서 사용자 에이전트를 컴포넌트라고 생각해보자.
+... event.defaultPrevented 되었는지 여부에 따라 컴포넌트 내부의 기본 동작이 실행되지 않도록 컴포넌트를 만들면 된다!
+
+```tsx
+<FancyComponent
+  onClick={(e) => {
+    // 컴포넌트 내부의 onClick 효과를 막는다.
+    e.preventDefault();
+    // 사용자의 핸들러를 사용한다.
+    userHandleClick();
+  }}
+/>
+```
+
+이렇게 e.preventDefault()를 이용해서 컴포넌트의 기본 동작을 막는다는 개념이 생긴다면 사용자는 더 좋은 사용자 경험을 할 수 있게된다.
+
+```tsx
+// 컴포넌트 내부의 기본 동작이 작동한다.
+<FancyComponent />
+// 컴포넌트 내부의 동작을 막고 사용자의 핸들러가 작동한다.
+<FancyComponent onClick={(e) => {
+    e.preventDefault();
+    userHandleClick();
+  }}
+/>
+// 컴포넌트의 내부 동작과 함께 사용자의 핸들러가 추가로 작동한다.
+<FancyComponent onClick={() => userHandleClick()} />
+```
+
+위와 같이 사용자 입장에서는 더 유연하게 컴포넌트의 활용이 가능해진다.
+
+## 컴포넌트에서의 내부 구현
+
+(전체 동작하는 코드가 아닌 예시코드이니 참고)
+
+```tsx
+// 첫 번째로 받은 handler를 실행하고 그 뒤에 defaultPrevented 여부에 따라 실행을 결정한다.
+const composePreventableEventHandlers = <E>(
+  handler: HandlerOrUndefined<E>,
+  ...preventableEventHandlers: HandlerOrUndefined<E>[]
+) => {
+  return (event: E) => {
+    handler?.(event);
+    if (!(event as unknown as Event).defaultPrevented) {
+      handleAll(event, ...preventableEventHandlers);
+    }
+  };
+};
+
+const FancyComponent = ({onClick, ...rest}: FancyComponentProps) => {
+  // ... 생략
+  const handleClick = composePreventableEventHandlers(
+    onClick,
+    () => internalHandleClick()
+  );
+
+  return <Comp onClick={handleClick} {...rest}/>
+}
+```
+
+## 정리
+
+event.preventDefault 는 컴포넌트의 관점으로 확장될 수 있다.
+컴포넌트에서의 event.preventDefault 의 개념으로 사용자에게 더 유연한 컴포넌트의 사용 경험을 제공할 수 있다.

@@ -1,21 +1,21 @@
-import type { GatsbyConfig, PluginRef } from "gatsby"
-import "dotenv/config"
+import type { GatsbyConfig, PluginRef } from "gatsby";
+import "dotenv/config";
 
-const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
+const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE;
 
 const config: GatsbyConfig = {
   siteMetadata: {
     // You can overwrite values here that are used for the SEO component
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.mjs
-    siteTitle: `Minimal Blog`,
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
-    siteHeadline: `Minimal Blog - Gatsby Theme from @lekoarts`,
-    siteUrl: `https://minimal-blog.lekoarts.de`,
-    siteDescription: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and line highlighting.`,
+    siteTitle: `장호빈의 블로그`,
+    siteTitleAlt: `장호빈의 블로그`,
+    siteHeadline: `장호빈의 블로그`,
+    siteUrl: `https://janghobin.blog/`,
+    siteDescription: `프론트엔드 개발자 장호빈의 블로그입니다.`,
     siteImage: `/banner.jpg`,
-    siteLanguage: `en`,
-    author: `@lekoarts_de`,
+    siteLanguage: `ko`,
+    author: `@dev-hobin`,
   },
   trailingSlash: `never`,
   plugins: [
@@ -23,26 +23,24 @@ const config: GatsbyConfig = {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
+        blogPath: `/posts`,
         navigation: [
-          {
-            title: `Blog`,
-            slug: `/blog`,
-          },
           {
             title: `About`,
             slug: `/about`,
           },
+          {
+            title: `Posts`,
+            slug: `/posts`,
+          },
         ],
         externalLinks: [
           {
-            name: `Twitter`,
-            url: `https://twitter.com/lekoarts_de`,
-          },
-          {
-            name: `Homepage`,
-            url: `https://www.lekoarts.de?utm_source=minimal-blog&utm_medium=Starter`,
+            name: `Github`,
+            url: `https://github.com/dev-hobin`,
           },
         ],
+        formatString: "YYYY.MM.DD",
       },
     },
     {
@@ -54,9 +52,9 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `장호빈의 블로그`,
+        short_name: `장호빈의 블로그`,
+        description: `프론트엔드 개발자 장호빈의 블로그입니다.`,
         start_url: `/`,
         background_color: `#fff`,
         // This will impact how browsers show your PWA/website
@@ -97,11 +95,11 @@ const config: GatsbyConfig = {
             serialize: ({
               query: { site, allPost },
             }: {
-              query: { allPost: IAllPost; site: { siteMetadata: ISiteMetadata } }
+              query: { allPost: IAllPost; site: { siteMetadata: ISiteMetadata } };
             }) =>
               allPost.nodes.map((post) => {
-                const url = site.siteMetadata.siteUrl + post.slug
-                const content = `<p>${post.excerpt}</p><div style="margin-top: 50px; font-style: italic;"><strong><a href="${url}">Keep reading</a>.</strong></div><br /> <br />`
+                const url = site.siteMetadata.siteUrl + post.slug;
+                const content = `<p>${post.excerpt}</p><div style="margin-top: 50px; font-style: italic;"><strong><a href="${url}">Keep reading</a>.</strong></div><br /> <br />`;
 
                 return {
                   title: post.title,
@@ -110,10 +108,10 @@ const config: GatsbyConfig = {
                   url,
                   guid: url,
                   custom_elements: [{ "content:encoded": content }],
-                }
+                };
               }),
             query: `{
-  allPost(sort: {date: DESC}) {
+allPost(sort: {date: DESC}) {
     nodes {
       title
       date(formatString: "MMMM D, YYYY")
@@ -123,7 +121,7 @@ const config: GatsbyConfig = {
   }
 }`,
             output: `rss.xml`,
-            title: `Minimal Blog - @lekoarts/gatsby-theme-minimal-blog`,
+            title: `장호빈의 블로그`,
           },
         ],
       },
@@ -137,41 +135,41 @@ const config: GatsbyConfig = {
       },
     },
   ].filter(Boolean) as Array<PluginRef>,
-}
+};
 
-export default config
+export default config;
 
 interface IPostTag {
-  name: string
-  slug: string
+  name: string;
+  slug: string;
 }
 
 interface IPost {
-  slug: string
-  title: string
-  defer: boolean
-  date: string
-  excerpt: string
-  contentFilePath: string
-  html: string
-  timeToRead: number
-  wordCount: number
-  tags: Array<IPostTag>
-  banner: any
-  description: string
-  canonicalUrl: string
+  slug: string;
+  title: string;
+  defer: boolean;
+  date: string;
+  excerpt: string;
+  contentFilePath: string;
+  html: string;
+  timeToRead: number;
+  wordCount: number;
+  tags: Array<IPostTag>;
+  banner: any;
+  description: string;
+  canonicalUrl: string;
 }
 
 interface IAllPost {
-  nodes: Array<IPost>
+  nodes: Array<IPost>;
 }
 
 interface ISiteMetadata {
-  siteTitle: string
-  siteTitleAlt: string
-  siteHeadline: string
-  siteUrl: string
-  siteDescription: string
-  siteImage: string
-  author: string
+  siteTitle: string;
+  siteTitleAlt: string;
+  siteHeadline: string;
+  siteUrl: string;
+  siteDescription: string;
+  siteImage: string;
+  author: string;
 }
