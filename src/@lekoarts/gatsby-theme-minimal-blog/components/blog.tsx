@@ -24,7 +24,6 @@ export type MBBlogProps = {
 
 const Blog = ({ posts }: MBBlogProps) => {
   const { tagsPath, basePath } = useMinimalBlogConfig();
-  console.log(posts);
   return (
     <Layout>
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between`, flexFlow: `wrap` }}>
