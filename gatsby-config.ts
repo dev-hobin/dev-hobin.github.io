@@ -11,7 +11,7 @@ const config: GatsbyConfig = {
     siteTitle: `장호빈의 블로그`,
     siteTitleAlt: `장호빈의 블로그`,
     siteHeadline: `장호빈의 블로그`,
-    siteUrl: `https://janghobin.blog/`,
+    siteUrl: `https://dev-hobin.github.io/`,
     siteDescription: `프론트엔드 개발자 장호빈의 블로그입니다.`,
     siteImage: `/banner.jpg`,
     siteLanguage: `ko`,
