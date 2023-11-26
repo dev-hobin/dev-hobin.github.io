@@ -38,14 +38,14 @@ const tagPosts = getPostsByTag(posts, tag)
 const sortTagsPost = getSortedPosts(tagPosts)
 ---
 
-<Layout title={`Tag:${tag} | ${SITE.title}`}>
+<Layout title={`태그:${tag} | ${SITE.title}`}>
   <Header activeNav="tags" />
   <Main
-    pageTitle={[`Tag:`, `${tag}`]}
+    pageTitle={[`태그:`, `${tag}`]}
     titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tag}".`}
+    pageDesc={`"${tag}"와 관련된 모든 글`}
   >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <h1 slot="title" transition:name={tag}>{`태그:${tag}`}</h1>
     <ul>
       {
         sortTagsPost.map(({ data }) => (
