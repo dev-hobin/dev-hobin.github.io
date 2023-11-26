@@ -25,22 +25,22 @@ npm install reading-time mdast-util-to-string
 Step (2) Create `remark-reading-time.mjs` file under `utils` directory
 
 ```js
-import getReadingTime from "reading-time";
-import { toString } from "mdast-util-to-string";
+import getReadingTime from 'reading-time'
+import { toString } from 'mdast-util-to-string'
 
 export function remarkReadingTime() {
   return function (tree, { data }) {
-    const textOnPage = toString(tree);
-    const readingTime = getReadingTime(textOnPage);
-    data.astro.frontmatter.readingTime = readingTime.text;
-  };
+    const textOnPage = toString(tree)
+    const readingTime = getReadingTime(textOnPage)
+    data.astro.frontmatter.readingTime = readingTime.text
+  }
 }
 ```
 
 Step (3) Add the plugin to `astro.config.ts`
 
 ```js
-import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs"; // make sure your relative path is correct
+import { remarkReadingTime } from './src/utils/remark-reading-time.mjs' // make sure your relative path is correct
 
 // https://astro.build/config
 export default defineConfig({
@@ -55,70 +55,70 @@ export default defineConfig({
       [
         remarkCollapse,
         {
-          test: "Table of contents",
+          test: 'Table of contents',
         },
       ],
     ],
     // other config
   },
   // other config
-});
+})
 ```
 
 Step (4) Add `readingTime` to blog schema (`src/content/config.ts`)
 
 ```ts
-import { SITE } from "@config";
-import { defineCollection, z } from "astro:content";
+import { SITE } from '@config'
+import { defineCollection, z } from 'astro:content'
 
 const blog = defineCollection({
-  type: "content",
+  type: 'content',
   schema: ({ image }) =>
     z.object({
       // others...
       canonicalURL: z.string().optional(),
       readingTime: z.string().optional(), // 👈🏻 readingTime frontmatter
     }),
-});
+})
 
-export const collections = { blog };
+export const collections = { blog }
 ```
 
 Step (5) Create a new file called `getPostsWithRT.ts` under `src/utils` directory.
 
 ```ts
-import type { MarkdownInstance } from "astro";
-import slugify from "./slugify";
-import type { CollectionEntry } from "astro:content";
+import type { MarkdownInstance } from 'astro'
+import slugify from './slugify'
+import type { CollectionEntry } from 'astro:content'
 
 export const getReadingTime = async () => {
   // Get all posts using glob. This is to get the updated frontmatter
-  const globPosts = import.meta.glob("../content/blog/*.md") as Promise<
-    CollectionEntry<"blog">["data"][]
-  >;
+  const globPosts = import.meta.glob('../content/blog/*.md') as Promise<
+    CollectionEntry<'blog'>['data'][]
+  >
 
   // Then, set those frontmatter value in a JS Map with key value pair
-  const mapFrontmatter = new Map();
-  const globPostsValues = Object.values(globPosts);
+  const mapFrontmatter = new Map()
+  const globPostsValues = Object.values(globPosts)
   await Promise.all(
-    globPostsValues.map(async globPost => {
-      const { frontmatter } = await globPost();
-      mapFrontmatter.set(slugify(frontmatter), frontmatter.readingTime);
-    })
-  );
+    globPostsValues.map(async (globPost) => {
+      const { frontmatter } = await globPost()
+      mapFrontmatter.set(slugify(frontmatter), frontmatter.readingTime)
+    }),
+  )
 
-  return mapFrontmatter;
-};
+  return mapFrontmatter
+}
 
-const getPostsWithRT = async (posts: CollectionEntry<"blog">[]) => {
-  const mapFrontmatter = await getReadingTime();
-  return posts.map(post => {
-    post.data.readingTime = mapFrontmatter.get(slugify(post.data));
-    return post;
-  });
-};
+const getPostsWithRT = async (posts: CollectionEntry<'blog'>[]) => {
+  const mapFrontmatter = await getReadingTime()
+  return posts.map((post) => {
+    post.data.readingTime = mapFrontmatter.get(slugify(post.data))
+    return post
+  })
+}
 
-export default getPostsWithRT;
+export default getPostsWithRT
 ```
 
 Step (6) Refactor `getStaticPaths` of `/src/pages/posts/[slug].astro` as the following
@@ -171,22 +171,22 @@ By following the previous steps, you can now access `readingTime` frontmatter pr
 Step (1) Update `utils/getSortedPosts.ts` as the following
 
 ```ts
-import type { CollectionEntry } from "astro:content";
-import getPostsWithRT from "./getPostsWithRT";
+import type { CollectionEntry } from 'astro:content'
+import getPostsWithRT from './getPostsWithRT'
 
-const getSortedPosts = async (posts: CollectionEntry<"blog">[]) => {
+const getSortedPosts = async (posts: CollectionEntry<'blog'>[]) => {
   // make sure that this func is async
-  const postsWithRT = await getPostsWithRT(posts); // add reading time
+  const postsWithRT = await getPostsWithRT(posts) // add reading time
   return postsWithRT
     .filter(({ data }) => !data.draft)
     .sort(
       (a, b) =>
         Math.floor(new Date(b.data.pubDatetime).getTime() / 1000) -
-        Math.floor(new Date(a.data.pubDatetime).getTime() / 1000)
-    );
-};
+        Math.floor(new Date(a.data.pubDatetime).getTime() / 1000),
+    )
+}
 
-export default getSortedPosts;
+export default getSortedPosts
 ```
 
 Step (2) Make sure to refactor every file which uses `getSortedPosts` function. You can simply add `await` keyword in front of `getSortedPosts` function.
@@ -201,8 +201,8 @@ Files that use `getSortedPosts` function are as follow
 All you have to do is like this
 
 ```ts
-const sortedPosts = getSortedPosts(posts); // old code ❌
-const sortedPosts = await getSortedPosts(posts); // new code ✅
+const sortedPosts = getSortedPosts(posts) // old code ❌
+const sortedPosts = await getSortedPosts(posts) // new code ✅
 ```
 
 Now you can access `readingTime` in other places besides `PostDetails`

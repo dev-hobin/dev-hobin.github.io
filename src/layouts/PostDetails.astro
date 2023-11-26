@@ -1,28 +1,28 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Tag from "@components/Tag.astro";
-import Datetime from "@components/Datetime";
-import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
+import Tag from '@components/Tag.astro'
+import Datetime from '@components/Datetime'
+import type { CollectionEntry } from 'astro:content'
+import { slugifyStr } from '@utils/slugify'
 
 export interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<'blog'>
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props
 
 const { title, author, description, ogImage, canonicalURL, pubDatetime, tags } =
-  post.data;
+  post.data
 
-const { Content } = await post.render();
+const { Content } = await post.render()
 
-const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
+const ogImageUrl = typeof ogImage === 'string' ? ogImage : ogImage?.src
 const ogUrl = new URL(
   ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
-  Astro.url.origin
-).href;
+  Astro.url.origin,
+).href
 ---
 
 <Layout
@@ -53,7 +53,7 @@ const ogUrl = new URL(
     </article>
 
     <ul class="tags-container">
-      {tags.map(tag => <Tag name={slugifyStr(tag)} />)}
+      {tags.map((tag) => <Tag name={slugifyStr(tag)} />)}
     </ul>
   </main>
   <Footer />
