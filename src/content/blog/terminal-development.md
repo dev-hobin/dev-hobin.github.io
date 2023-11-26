@@ -1,14 +1,14 @@
 ---
-title: Placeholder Post
+title: 부끄럽지만...
 author: 장호빈
-pubDatetime: 2022-06-09T03:42:51Z
-postSlug: placeholder-post
+pubDatetime: 2023-11-26T23:33:00Z
+postSlug: sample-post
 featured: false
 draft: false
 tags:
-  - SampleTags
+  - SampleTag
 
-description: 'placeholder description'
+description: '부끄럽지만 샘플글입니다 😅'
 ---
 
-> Hello World!!
+# 이제 시작이다!
