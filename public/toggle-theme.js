@@ -20,6 +20,7 @@ let themeValue = getPreferTheme()
 
 function setPreference() {
   localStorage.setItem('theme', themeValue)
+  setUtterancesTheme(themeValue === 'light' ? 'github-light' : 'github-dark')
   reflectPreference()
 }
 
@@ -43,6 +44,17 @@ function reflectPreference() {
     document
       .querySelector("meta[name='theme-color']")
       ?.setAttribute('content', bgColor)
+  }
+}
+
+function setUtterancesTheme(theme) {
+  if (document.querySelector('.utterances-frame')) {
+    const message = {
+      type: 'set-theme',
+      theme,
+    }
+    const iframe = document.querySelector('.utterances-frame')
+    iframe?.contentWindow?.postMessage(message, 'https://utteranc.es')
   }
 }
 
