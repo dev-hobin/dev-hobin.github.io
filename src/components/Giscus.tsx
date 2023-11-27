@@ -8,12 +8,13 @@ export default function Giscus() {
 
     const theme =
       document.firstElementChild?.getAttribute('data-theme') ?? 'light'
+
     const attributes = {
       src: 'https://giscus.app/client.js',
       'data-repo': 'dev-hobin/dev-hobin.github.io',
       'data-repo-id': 'R_kgDOKyEt3w',
       'data-category': 'Comments',
-      'data-category-id': 'DIC_kwDOKyEt384CbShH',
+      'data-category-id': 'DIC_kwDOKyEt384CbShT',
       'data-mapping': 'pathname',
       'data-strict': '0',
       'data-reactions-enabled': '1',
