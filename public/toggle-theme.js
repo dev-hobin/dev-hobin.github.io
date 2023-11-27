@@ -1,7 +1,9 @@
+const LOCAL_STORAGE_THEME_KEY = 'hobin-theme'
+
 const primaryColorScheme = '' // "light" | "dark"
 
 // Get theme data from local storage
-const currentTheme = localStorage.getItem('theme')
+const currentTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY)
 
 function getPreferTheme() {
   // return theme value in local storage if it is set
@@ -19,8 +21,12 @@ function getPreferTheme() {
 let themeValue = getPreferTheme()
 
 function setPreference() {
-  localStorage.setItem('theme', themeValue)
-  setUtterancesTheme(themeValue === 'light' ? 'github-light' : 'github-dark')
+  localStorage.setItem(LOCAL_STORAGE_THEME_KEY, themeValue)
+  sendMessageToGiscus({
+    setConfig: {
+      theme: themeValue,
+    },
+  })
   reflectPreference()
 }
 
@@ -47,15 +53,11 @@ function reflectPreference() {
   }
 }
 
-function setUtterancesTheme(theme) {
-  if (document.querySelector('.utterances-frame')) {
-    const message = {
-      type: 'set-theme',
-      theme,
-    }
-    const iframe = document.querySelector('.utterances-frame')
-    iframe?.contentWindow?.postMessage(message, 'https://utteranc.es')
-  }
+function sendMessageToGiscus(message) {
+  const iframe = document.querySelector('iframe.giscus-frame')
+  if (!iframe) return
+
+  iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
 }
 
 // set early so no page flashes / CSS is made aware

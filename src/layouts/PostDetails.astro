@@ -4,7 +4,7 @@ import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import Tag from '@components/Tag.astro'
 import Datetime from '@components/Datetime'
-import Utterances from '@components/Utterances.tsx'
+import Giscus from '@components/Giscus'
 import type { CollectionEntry } from 'astro:content'
 import { slugifyStr } from '@utils/slugify'
 
@@ -57,7 +57,7 @@ const ogUrl = new URL(
       {tags.map((tag) => <Tag name={slugifyStr(tag)} />)}
     </ul>
 
-    <Utterances client:load />
+    <Giscus client:visible />
   </main>
   <Footer />
 </Layout>
