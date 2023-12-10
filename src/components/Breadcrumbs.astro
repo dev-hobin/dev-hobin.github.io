@@ -39,7 +39,7 @@ const PATH_TO_TITLE: Record<string, string> = {
           <span aria-current="page">
             {breadcrumbList[0] === 'posts'
               ? `${breadcrumbList[1]}쪽`
-              : breadcrumbList[1]}
+              : decodeURIComponent(breadcrumbList[1])}
           </span>
         </li>
       )
