@@ -93,9 +93,9 @@ yarn add -D tsup @changesets/cli
 
 tsup은 번들러다. tsup을 사용하는 이유는
 
-- 간편한 타입선언파일(d.mts, d.cts) 생성
+- 간편한 타입선언파일(d.mts, d.cts) 생성  
   cjs, esm을 모두 지원하기 위해서는 타입 선언 파일도 각각에 맞게 (.mts, .cts) 따로 만들어주어야 하는데, 그 선언 파일들을 알아서 만들어준다. (tsc 명령어는 .ts 파일 하나만으로는 이 두 타입의 선언파일들을 생성해주지 못한다.)
-- dependencies, peerDependencies 가 번들링에 포함되지 않는것이 디폴트다.
+- dependencies, peerDependencies 가 번들링에 포함되지 않는것이 디폴트다.  
   즉, react, react-dom 등 번들링에 포함되지 말아야할 라이브러리들을 일일히 external 설정을 안해도 된다.
 
 changesets는 멀티 패키지 저장소의 패키지 버전관리를 위한 툴이다.
