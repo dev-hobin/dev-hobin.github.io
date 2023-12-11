@@ -1,4 +1,4 @@
-import satori, { type SatoriOptions } from 'satori'
+import satori, { type SatoriOptions, Locale } from 'satori'
 import { Resvg } from '@resvg/resvg-js'
 import { type CollectionEntry } from 'astro:content'
 import postOgImage from './og-templates/post'
@@ -32,12 +32,14 @@ const options: SatoriOptions = {
       data: fontRegular,
       weight: 400,
       style: 'normal',
+      lang: 'ko-KR',
     },
     {
       name: 'IBM Plex Mono',
       data: fontBold,
       weight: 600,
       style: 'normal',
+      lang: 'ko-KR',
     },
   ],
 }
