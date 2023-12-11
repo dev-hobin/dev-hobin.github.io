@@ -3,18 +3,15 @@ import { Resvg } from '@resvg/resvg-js'
 import { type CollectionEntry } from 'astro:content'
 import postOgImage from './og-templates/post'
 import siteOgImage from './og-templates/site'
+import fs from 'node:fs/promises'
 
 const fetchFonts = async () => {
-  const fontFileRegular = await fetch(
-    '/fonts/Pretendard/Pretendard-Regular.woff',
+  const fontRegular = await fs.readFile(
+    './public/fonts/Pretendard/Pretendard-Regular.woff',
   )
-  const fontRegular: ArrayBuffer = await fontFileRegular.arrayBuffer()
-
-  const fontFileSemiBold = await fetch(
-    '/fonts/Pretendard/Pretendard-SemiBold.woff',
+  const fontSemiBold = await fs.readFile(
+    './public/fonts/Pretendard/Pretendard-SemiBold.woff',
   )
-  const fontSemiBold: ArrayBuffer = await fontFileSemiBold.arrayBuffer()
-
   return { fontRegular, fontSemiBold }
 }
 
