@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@components/Breadcrumbs.astro'
+import generateHash from '@utils/generateHash'
 
 interface StringTitleProp {
   pageTitle: string
@@ -23,7 +24,7 @@ const { props } = Astro
     'titleTransition' in props ? (
       <h1>
         {props.pageTitle[0]}
-        <span transition:name={props.titleTransition}>
+        <span transition:name={generateHash(props.titleTransition, 'tag')}>
           {props.pageTitle[1]}
         </span>
       </h1>

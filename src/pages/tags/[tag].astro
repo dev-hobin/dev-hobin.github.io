@@ -10,6 +10,7 @@ import getPostsByTag from '@utils/getPostsByTag'
 import slugify from '@utils/slugify'
 import { SITE } from '@config'
 import getSortedPosts from '@utils/getSortedPosts'
+import generateHash from '@utils/generateHash'
 
 export interface Props {
   post: CollectionEntry<'blog'>
@@ -45,7 +46,9 @@ const sortTagsPost = getSortedPosts(tagPosts)
     titleTransition={tag}
     pageDesc={`"${tag}"와 관련된 모든 글`}
   >
-    <h1 slot="title" transition:name={tag}>{`태그:${tag}`}</h1>
+    <h1 slot="title" transition:name={generateHash(tag, 'tag')}>
+      {`태그:${tag}`}
+    </h1>
     <ul>
       {
         sortTagsPost.map(({ data }) => (
