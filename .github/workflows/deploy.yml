@@ -20,9 +20,11 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
-      - name: Install, build, and upload your site
+      - name: Generate Environment Variables File
+        run: echo "PUBLIC_GOOGLE_SITE_VERIFICATION=$PUBLIC_GOOGLE_SITE_VERIFICATION" >> .env
         env:
           PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+      - name: Install, build, and upload your site
         uses: withastro/action@v1
         # with:
         # path: . # The root location of your Astro project inside the repository. (optional)
