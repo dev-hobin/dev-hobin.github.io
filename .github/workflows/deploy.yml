@@ -21,7 +21,9 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
       - name: Generate Environment Variables File
-        run: echo "PUBLIC_GOOGLE_SITE_VERIFICATION=$PUBLIC_GOOGLE_SITE_VERIFICATION" >> .env
+        run: |
+          echo "PUBLIC_GOOGLE_SITE_VERIFICATION=$PUBLIC_GOOGLE_SITE_VERIFICATION" >> .env
+          echo "PUBLIC_GOOGLE_SITE_VERIFICATION : $PUBLIC_GOOGLE_SITE_VERIFICATION"
         env:
           PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
       - name: Install, build, and upload your site
