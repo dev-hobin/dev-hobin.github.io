@@ -23,7 +23,7 @@ jobs:
       - name: Generate Environment Variables File
         run: echo "PUBLIC_GOOGLE_SITE_VERIFICATION=$PUBLIC_GOOGLE_SITE_VERIFICATION" >> .env
         env:
-          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ secrets.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       - name: Install, build, and upload your site
         uses: withastro/action@v1
         # with:
