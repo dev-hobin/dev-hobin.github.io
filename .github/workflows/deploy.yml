@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install, build, and upload your site
         env:
-          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ env.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
         uses: withastro/action@v1
         # with:
         # path: . # The root location of your Astro project inside the repository. (optional)
