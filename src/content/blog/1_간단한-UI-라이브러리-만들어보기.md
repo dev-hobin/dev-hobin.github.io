@@ -11,7 +11,7 @@ tags:
   - Yarn Berry
   - 글또
 
-description: 'UI 라이브러리를 차근차근 만드는 과정을 정리해보았습니다'
+description: 'UI 라이브러리를 차근차근 만드는 과정을 정리했다.'
 ---
 
 ## 개요
@@ -226,7 +226,7 @@ yarn add -D react react-dom @types/react @types/react-dom
 
 peerDependency는 이러한 문제를 방지하기 위해 사용되며, peerDependency를 사용하면 컴포넌트가 의존하는 라이브러리의 최소 버전과 최대 버전을 지정할 수 있다.
 
-즉, peerDependency를 설정하면 사용자에게 안전하게 이 라이브러리를 사용하려면 어떤 라이브러리를 어떤 버전으로 설치해야하는지 알려줄 수 있다.
+즉, peerDependency를 설정하면 사용자에게 안전하게 이 라이브러리를 사용하려면 어떤 라이브러리를 어떤 버전으로 설치해야하는지 알려줄 수 있다.
 
 ```bash
 mkdir src && mkdir src/Button.tsx && mkdir src/index.tsx
