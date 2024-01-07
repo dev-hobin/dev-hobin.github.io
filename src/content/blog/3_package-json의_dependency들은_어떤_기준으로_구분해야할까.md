@@ -1,7 +1,7 @@
 ---
 title: package.json의 dependency들은 어떤 기준으로 구분해야 할까?
 author: 장호빈
-pubDatetime: 2024-1-7T11:50:00
+pubDatetime: 2024-1-7T12:05:00
 postSlug: how-to-classify-the-dependencies-of-package-json
 featured: false
 draft: false
