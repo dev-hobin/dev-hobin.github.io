@@ -1,5 +1,5 @@
 ---
-title: GSAP 애니메이션 기본편 - 주요 개념과 멘탈 모델
+title: GSAP 애니메이션 기본편 - 주요 개념과 멘탈 모델
 author: 장호빈
 pubDatetime: 2024-02-18T17:30:00
 postSlug: gsap-animation-basics
