@@ -1,7 +1,6 @@
 {
   "name": "blog",
   "version": "3.0.0",
-  "packageManager": "pnpm@8.10.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
