@@ -80,7 +80,7 @@ export * from './Button.tsx'
 export * from './Button.tsx'
 ```
 
-모든 과정을 지나 만들어진 선언 파일들에도 위와 같이 .ts(x) 가 붙어서 생성되고, 이것은 각각 `index` 파일의 확장자에 알맞게 `Button.d.ts`, `Button.d.cts` 선언 파일을 찾아갈 수 있게 된다.
+모든 과정을 지나 만들어진 선언 파일들에도 위와 같이 .ts(x) 가 붙어서 생성되고, 이것이 `index` 파일의 각각의 확장자에 알맞게 `Button.d.ts`, `Button.d.cts` 선언 파일을 찾아갈 수 있게 한다.
 
 또한, TS 5.4 버전부터 `module: "Preserve"` 속성을 쓸 수 있게 되었는데, 번들러를 사용중이라면 지금까지 가장 단점([자세한 내용](https://devblogs.microsoft.com/typescript/announcing-typescript-5-4/#support-for-require-calls-in---moduleresolution-bundler-and---module-preserve))이 없는 최신 설정값이므로 이 설정값을 사용한다.
 
