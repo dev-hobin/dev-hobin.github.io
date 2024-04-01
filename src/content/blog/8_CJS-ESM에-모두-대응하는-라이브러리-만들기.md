@@ -80,7 +80,7 @@ export * from './Button.tsx'
 export * from './Button.tsx'
 ```
 
-모든 과정을 지나 만들어진 선언 파일들에도 위와 같이 .ts(x) 가 붙어서 생성되고, 이것이 `index` 파일의 각각의 확장자에 알맞게 `Button.d.ts`, `Button.d.cts` 선언 파일을 찾아갈 수 있게 한다.
+모든 과정을 지나 만들어진 선언 파일들에도 위와 같이 .ts(x) 가 붙어서 생성되고, 이것이 사용자가 어느 환경이든간에(cjs, esm) `index` 파일에서 `Button.d.ts` 선언 파일을 찾아갈 수 있게 한다.
 
 또한, TS 5.4 버전부터 `module: "Preserve"` 속성을 쓸 수 있게 되었는데, 번들러를 사용중이라면 지금까지 가장 단점([자세한 내용](https://devblogs.microsoft.com/typescript/announcing-typescript-5-4/#support-for-require-calls-in---moduleresolution-bundler-and---module-preserve))이 없는 최신 설정값이므로 이 설정값을 사용한다.
 
@@ -146,7 +146,7 @@ plugins 설정을 보면 순서대로
 1. `typescript({ noForceEmit: true })` : tsconfig를 기준으로 하여 선언 파일을 생성한다.
 2. `babel({ ... })` : 소스코드를 `babel.config.json` 를 기준으로 트랜스파일한다.
 3. `nodeResolve()` : 라이브러리 내에서 써드 파티 모듈을 사용할 수 있게 한다.
-4. `commonjs()` : 롤업은 common js 모듈을 import하는 코드를 해석하지 못하는데, 이 모듈을 es6로 변환하여 번들에 포함될 수 있게한다.
+4. `commonjs()` : 롤업은 commonjs 모듈을 import하는 코드를 해석하지 못하는데, 이 모듈을 es6로 변환하여 번들에 포함될 수 있게한다.
 
 ### d.cts 파일 만들기
 
