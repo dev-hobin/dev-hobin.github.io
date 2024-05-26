@@ -5,7 +5,7 @@ export const SITE: Site = {
   author: 'Hobin Jang',
   desc: '개발자로서 여러 생각을 기록합니다',
   title: '장호빈',
-  ogImage: 'blog-og.jpg',
+  ogImage: 'blog-og.jpeg',
   lightAndDarkMode: true,
   postPerPage: 10,
 }
