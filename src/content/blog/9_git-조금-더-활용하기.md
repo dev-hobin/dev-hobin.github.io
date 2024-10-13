@@ -23,13 +23,13 @@ rebase는 커밋 내역을 편집하는 데 핵심이 되는 기능이다. re-ba
 
 작업을 할 때 항상 처음 생각했던 대로 진행되는 것이 아니고 여러 번 삽질할 수도 있으며, 작업이 상당히 진행된 후에 잘못된 부분을 깨달을 수도 있다. 이런 상황들이 무서워서 커밋을 남기기를 두려워할 수는 없다. 작업하는 중에 커밋은 원하는만큼 잘게 나눠서 마음껏 할 수 있어야 한다. 그러기 위해서는 내가 만든 커밋 내역은 나중에 정리할 수 있다는 확신이 있어야 한다.
 
-```plaintext
+```console
 git rebase -i [수정을 시작할 기반 커밋]
 ```
 
 위의 명령어를 실행하면 수정할 커밋부터 현재 커밋까지의 수정할 수 있는 리스트가 표시되며 커밋 메시지 편집, 커밋 순서 변경, 작업 내용 변경 등 여러 수정을 할 수 있다.
 
-```plaintext
+```console
 # Commands:
 # p, pick <commit> = use commit
 # r, reword <commit> = use commit, but edit the commit message
@@ -54,7 +54,7 @@ git rebase -i [수정을 시작할 기반 커밋]
 
 ### 다른 브랜치에 이어 붙이기
 
-```plaintext
+```console
 git rebase [기준_브렌치] [이어붙일_브렌치]
 ```
 
@@ -72,7 +72,7 @@ rebase와 cherry-pick을 적극적으로 활용하면 얻을 수 있는 것은 �
 
 ## Revert
 
-```plaintext
+```console
 git revert --no-commit [되돌릴 커밋...]
 ```
 
